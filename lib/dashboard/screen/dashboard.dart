@@ -14,8 +14,8 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   @override
   void initState() {
-    context.read<SmsServiceBloc>().add(ListenToSms());
     context.read<SmsServiceBloc>().add(FetchSms(context: context));
+    context.read<SmsServiceBloc>().add(ListenToSms());
     super.initState();
   }
 
