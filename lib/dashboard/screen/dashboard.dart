@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vehicle_tracker/config/send_sms_status.dart';
 import 'package:vehicle_tracker/dashboard/logic/bloc/sms_service_bloc.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             onPressed: () {
               context
                   .read<SmsServiceBloc>()
-                  .add(SendSms(command: 'HIII', context: context));
+                  .add(SendSms(command: SendSMS.start, context: context));
             },
             child: const Text('Send SMS')),
       ),
