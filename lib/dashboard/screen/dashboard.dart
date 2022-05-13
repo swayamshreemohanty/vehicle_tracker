@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vehicle_tracker/config/send_sms_status.dart';
 import 'package:vehicle_tracker/dashboard/logic/bloc/sms_service_bloc.dart';
+import 'package:vehicle_tracker/dashboard/widget/action_buttons.dart';
+import 'package:vehicle_tracker/dashboard/widget/vehicle_details_box.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   final _pageTitleTextStyle = GoogleFonts.poppins(
       textStyle: TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 14.sp,
+    fontSize: 16.sp,
   ));
 
   @override
@@ -36,14 +38,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           style: _pageTitleTextStyle,
         ),
       ),
-      body: Center(
-        child: OutlinedButton(
-            onPressed: () {
-              context
-                  .read<SmsServiceBloc>()
-                  .add(SendSms(command: SendSMS.start, context: context));
-            },
-            child: const Text('Send SMS')),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const ActionButtons(),
+            SizedBox(height: 10.h),
+            const VehicleDetails(),
+          ],
+        ),
       ),
     );
   }
