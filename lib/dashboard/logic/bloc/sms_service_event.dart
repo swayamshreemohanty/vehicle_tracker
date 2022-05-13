@@ -12,7 +12,7 @@ class FetchSms extends SmsServiceEvent {
 }
 
 class SendSms extends SmsServiceEvent {
-  final String command;
+  final SendSMS command;
   final BuildContext context;
   SendSms({
     required this.command,
