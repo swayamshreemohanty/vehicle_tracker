@@ -40,9 +40,8 @@ class MyApp extends StatelessWidget {
               WidgetsBinding.instance.window.devicePixelRatio,
         ),
         builder: (_) => MaterialApp(
-          title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.amber,
           ),
           home: const DashBoardScreen(),
         ),
