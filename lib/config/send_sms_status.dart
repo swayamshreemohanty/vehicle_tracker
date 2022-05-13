@@ -13,9 +13,9 @@ extension SMSStatus on SendSMS {
       case SendSMS.stop:
         return 'stop';
       case SendSMS.checkStatus:
-        return 'checkStatus';
+        return 'checkstatus';
       case SendSMS.fetchLocation:
-        return 'fetchLocation';
+        return 'fetchlocation';
       default:
         return 'error';
     }
