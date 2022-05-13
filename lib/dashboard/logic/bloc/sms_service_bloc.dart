@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telephony/telephony.dart';
-import 'package:vehicle_tracker/dashboard/utility/show_snak_bar.dart';
+import 'package:vehicle_tracker/config/send_sms_status.dart';
+import 'package:vehicle_tracker/utility/show_snak_bar.dart';
 
 part 'sms_service_event.dart';
 part 'sms_service_state.dart';
@@ -38,7 +39,7 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
 
             await smsService.sendSms(
               to: "7609934272",
-              message: "hello",
+              message: event.command.convertToString(),
               statusListener: listener,
             );
           }
