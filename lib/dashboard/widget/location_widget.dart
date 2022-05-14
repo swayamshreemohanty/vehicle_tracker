@@ -48,7 +48,7 @@ class LocationWidget extends StatelessWidget {
             if (state is NoLocationfound) {
               return Center(
                   child: Text(
-                'No location found!',
+                state.error,
                 style: textStyle,
               ));
             } else {

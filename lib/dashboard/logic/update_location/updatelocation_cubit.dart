@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehicle_tracker/model/location_model.dart';
 part 'updatelocation_state.dart';
 
@@ -24,7 +24,7 @@ class UpdatelocationCubit extends Cubit<UpdatelocationState> {
 
   Future<void> noLocationFound() async {
     emit(Loadinglocation());
-    emit(NoLocationfound());
+    emit(NoLocationfound(error: "No location found!"));
     return;
   }
 }
