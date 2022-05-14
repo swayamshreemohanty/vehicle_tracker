@@ -16,8 +16,8 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
   }) : super(SmsServiceInitial()) {
     on<SmsServiceEvent>((event, emit) async {
       if (event is SendSms) {
-        late SmsSendStatusListener listener;
         try {
+          late SmsSendStatusListener listener;
           void showRequestStatus(SendStatus status) {
             switch (status) {
               case SendStatus.SENT:
@@ -47,6 +47,7 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
               statusListener: listener,
             );
           }
+          return;
         } catch (e) {
           if (e is PlatformException) {
             ShowSnackBar.showSnackBar(
@@ -56,8 +57,8 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
           } else {
             ShowSnackBar.showSnackBar(event.context, 'Something went wrong.');
           }
+          return;
         }
-        return;
       } else if (event is ListenToSms) {
         smsService.listenIncomingSms(
           listenInBackground: false,
@@ -93,6 +94,7 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
           } else {
             ShowSnackBar.showSnackBar(event.context, 'Something went wrong.');
           }
+          return;
         }
       }
     });
