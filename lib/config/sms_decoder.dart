@@ -4,8 +4,7 @@ class SMSDecoder {
   static SmsDecoder decodeSMS({required String sms}) {
     if (sms.contains('your vehicle location')) {
       return SmsDecoder.location;
-    }
-    if (sms.contains('your vehicle status')) {
+    } else if (sms.contains('your vehicle status')) {
       return SmsDecoder.checkStatus;
     } else {
       return SmsDecoder.startStop;
