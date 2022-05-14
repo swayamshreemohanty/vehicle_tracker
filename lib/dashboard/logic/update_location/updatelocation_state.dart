@@ -7,7 +7,10 @@ class UpdatelocationInitial extends UpdatelocationState {}
 
 class Loadinglocation extends UpdatelocationState {}
 
-class NoLocationfound extends UpdatelocationState {}
+class NoLocationfound extends UpdatelocationState {
+  final String error;
+  NoLocationfound({required this.error});
+}
 
 class LocationFetched extends UpdatelocationState {
   final LocationModel location;
