@@ -87,6 +87,7 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
           return;
         } catch (e) {
           if (e is PlatformException) {
+            dashboarddatacontrollerCubit.handleSMSList(smsList: []);
             ShowSnackBar.showSnackBar(
               event.context,
               e.message ?? "Error occured.",
