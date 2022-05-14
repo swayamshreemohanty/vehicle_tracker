@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telephony/telephony.dart';
+import 'package:vehicle_tracker/config/env.dart';
 import 'package:vehicle_tracker/config/send_sms_status.dart';
 import 'package:vehicle_tracker/dashboard/logic/dashboard_data_controller/dashboarddatacontroller_cubit.dart';
 import 'package:vehicle_tracker/utility/show_snak_bar.dart';
@@ -41,7 +42,7 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
             };
 
             await smsService.sendSms(
-              to: "7609934272",
+              to: hostPhoneNumber,
               message: event.command.convertToString(),
               statusListener: listener,
             );
@@ -75,7 +76,7 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
             List<SmsMessage> smsList = await smsService.getInboxSms(
               columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
               filter:
-                  SmsFilter.where(SmsColumn.ADDRESS).equals("+917609934272"),
+                  SmsFilter.where(SmsColumn.ADDRESS).equals(hostPhoneNumber),
               sortOrder: [
                 OrderBy(SmsColumn.ID, sort: Sort.DESC),
               ],
