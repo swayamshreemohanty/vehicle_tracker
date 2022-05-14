@@ -98,9 +98,9 @@ class StatusLoadingSpinner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 20.h,
-      width: 20.w,
-      child: const LoadingIndicator(),
+      height: 18.h,
+      width: 18.w,
+      child: const LoadingIndicator(strokeWidth: 3),
     );
   }
 }
