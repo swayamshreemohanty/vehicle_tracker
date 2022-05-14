@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vehicle_tracker/config/send_sms_status.dart';
-import 'package:vehicle_tracker/dashboard/logic/bloc/sms_service_bloc.dart';
+import 'package:vehicle_tracker/dashboard/logic/sms_service/sms_service_bloc.dart';
 import 'package:vehicle_tracker/dashboard/widget/action_buttons.dart';
+import 'package:vehicle_tracker/dashboard/widget/location_widget.dart';
 import 'package:vehicle_tracker/dashboard/widget/vehicle_details_box.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -45,6 +45,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             const ActionButtons(),
             SizedBox(height: 10.h),
             const VehicleDetails(),
+            SizedBox(height: 10.h),
+            const Expanded(child: LocationWidget()),
           ],
         ),
       ),
