@@ -34,9 +34,9 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
           }
 
           final permissionsGranted =
-              await smsService.requestPhoneAndSmsPermissions;
+              await smsService.requestPhoneAndSmsPermissions ?? false;
 
-          if (permissionsGranted ?? false) {
+          if (permissionsGranted) {
             listener = (SendStatus status) {
               showRequestStatus(status);
             };
@@ -71,8 +71,8 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
       } else if (event is FetchSms) {
         try {
           final permissionsGranted =
-              await smsService.requestPhoneAndSmsPermissions;
-          if (permissionsGranted ?? false) {
+              await smsService.requestPhoneAndSmsPermissions ?? false;
+          if (permissionsGranted) {
             List<SmsMessage> smsList = await smsService.getInboxSms(
               columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
               filter:
