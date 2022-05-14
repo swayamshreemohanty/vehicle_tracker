@@ -59,13 +59,12 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
         return;
       } else if (event is ListenToSms) {
         smsService.listenIncomingSms(
+          listenInBackground: false,
           onNewMessage: (SmsMessage message) async {
             await dashboarddatacontrollerCubit.handleSMS(
               sms: message.body ?? 'N/A',
             );
           },
-          listenInBackground: true,
-          onBackgroundMessage: backgrounMessageHandler,
         );
         return;
       } else if (event is FetchSms) {
@@ -78,7 +77,7 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
               filter:
                   SmsFilter.where(SmsColumn.ADDRESS).equals("+917609934272"),
               sortOrder: [
-                OrderBy(SmsColumn.BODY, sort: Sort.DESC),
+                OrderBy(SmsColumn.ID, sort: Sort.DESC),
               ],
             );
             await dashboarddatacontrollerCubit.handleSMSList(smsList: smsList);
@@ -98,10 +97,4 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
     });
   }
   final Telephony smsService = Telephony.instance;
-
-  static backgrounMessageHandler(SmsMessage message) async {
-    //Handle background message
-    print("************Background msg received**********");
-    // dashboarddatacontrollerCubit.handleSMS(sms: message.body ?? 'N/A');
-  }
 }
