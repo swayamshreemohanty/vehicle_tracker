@@ -15,10 +15,14 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
+  Future<void> _fetchAndRefreshData(BuildContext context) async {
+    context.read<SmsServiceBloc>().add(FetchSms(context: context));
+  }
+
   @override
   void initState() {
-    context.read<SmsServiceBloc>().add(FetchSms(context: context));
     context.read<SmsServiceBloc>().add(ListenToSms());
+    _fetchAndRefreshData(context);
     super.initState();
   }
 
@@ -37,17 +41,26 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           'Vehicle Tracker',
           style: _pageTitleTextStyle,
         ),
+        actions: [
+          IconButton(
+            onPressed: () => _fetchAndRefreshData(context),
+            icon: const Icon(Icons.refresh),
+            tooltip: 'Refresh',
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            const ActionButtons(),
-            SizedBox(height: 10.h),
-            const VehicleDetails(),
-            SizedBox(height: 10.h),
-            const Expanded(child: LocationWidget()),
-          ],
+        child: Center(
+          child: Column(
+            children: [
+              const ActionButtons(),
+              SizedBox(height: 10.h),
+              const VehicleDetails(),
+              SizedBox(height: 10.h),
+              const Expanded(child: LocationWidget()),
+            ],
+          ),
         ),
       ),
     );
