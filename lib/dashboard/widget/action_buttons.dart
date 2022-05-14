@@ -63,7 +63,7 @@ class Buttons extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 5.w),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
+            padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 5.w),
           ),
           onPressed: onPressed,
           child: Text(
