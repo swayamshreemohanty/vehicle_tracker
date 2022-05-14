@@ -3,13 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:telephony/telephony.dart';
 import 'package:vehicle_tracker/config/send_sms_status.dart';
+import 'package:vehicle_tracker/dashboard/logic/dashboard_data_controller/dashboarddatacontroller_cubit.dart';
 import 'package:vehicle_tracker/utility/show_snak_bar.dart';
-
 part 'sms_service_event.dart';
 part 'sms_service_state.dart';
 
 class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
-  SmsServiceBloc() : super(SmsServiceInitial()) {
+  final DashboarddatacontrollerCubit dashboarddatacontrollerCubit;
+  SmsServiceBloc({
+    required this.dashboarddatacontrollerCubit,
+  }) : super(SmsServiceInitial()) {
     on<SmsServiceEvent>((event, emit) async {
       if (event is SendSms) {
         late SmsSendStatusListener listener;
@@ -56,10 +59,10 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
         return;
       } else if (event is ListenToSms) {
         smsService.listenIncomingSms(
-          onNewMessage: (SmsMessage message) {
-            print("************New msg received**********");
-            print(message.address);
-            print(message.body);
+          onNewMessage: (SmsMessage message) async {
+            await dashboarddatacontrollerCubit.handleSMS(
+              sms: message.body ?? 'N/A',
+            );
           },
           listenInBackground: true,
           onBackgroundMessage: backgrounMessageHandler,
@@ -70,25 +73,19 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
           final permissionsGranted =
               await smsService.requestPhoneAndSmsPermissions;
           if (permissionsGranted ?? false) {
-            List<SmsMessage> messages = await smsService.getInboxSms(
+            List<SmsMessage> smsList = await smsService.getInboxSms(
               columns: [SmsColumn.ADDRESS, SmsColumn.BODY],
               filter:
                   SmsFilter.where(SmsColumn.ADDRESS).equals("+917609934272"),
               sortOrder: [
                 OrderBy(SmsColumn.BODY, sort: Sort.DESC),
-                // OrderBy(SmsColumn.BODY)
               ],
             );
-            print("Printing list");
-            print(messages.length);
-            for (var element in messages) {
-              print(element.body);
-            }
+            await dashboarddatacontrollerCubit.handleSMSList(smsList: smsList);
           }
           return;
         } catch (e) {
           if (e is PlatformException) {
-            print(e.message);
             ShowSnackBar.showSnackBar(
               event.context,
               e.message ?? "Error occured.",
@@ -105,7 +102,6 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
   static backgrounMessageHandler(SmsMessage message) async {
     //Handle background message
     print("************Background msg received**********");
-    print(message.address);
-    print(message.body);
+    // dashboarddatacontrollerCubit.handleSMS(sms: message.body ?? 'N/A');
   }
 }
