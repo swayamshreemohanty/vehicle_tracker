@@ -21,8 +21,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   void initState() {
-    context.read<SmsServiceBloc>().add(ListenToSms());
-    _fetchAndRefreshData(context);
+    Future.delayed(Duration.zero, () async {
+      context.read<SmsServiceBloc>().add(ListenToSms());
+      await _fetchAndRefreshData(context);
+    });
     super.initState();
   }
 
