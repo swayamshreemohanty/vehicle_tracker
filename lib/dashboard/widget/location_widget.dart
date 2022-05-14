@@ -21,57 +21,58 @@ class LocationWidget extends StatelessWidget {
     );
     return Container(
       decoration: BoxDecoration(border: Border.all()),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 4.h),
-          child: ElevatedButton(
-            onPressed: () {
-              context.read<SmsServiceBloc>().add(
-                  SendSms(command: SendSMS.fetchLocation, context: context));
-            },
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 30.w),
-            ),
-            child: Text(
-              'Refresh vehicle location',
-              style: textStyle,
-            ),
-          ),
-        ),
-        Flexible(
-          child: BlocBuilder<UpdatelocationCubit, UpdatelocationState>(
-            builder: ((context, state) {
-              if (state is LocationFetched) {
-                return GoogleMap(
-                  myLocationEnabled: true,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(
+      child: Stack(children: [
+        BlocBuilder<UpdatelocationCubit, UpdatelocationState>(
+          builder: ((context, state) {
+            if (state is LocationFetched) {
+              return GoogleMap(
+                myLocationEnabled: true,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(
+                    state.location.latitude,
+                    state.location.longitude,
+                  ),
+                  zoom: 15,
+                ),
+                markers: <Marker>{
+                  Marker(
+                    markerId: const MarkerId('m1'),
+                    position: LatLng(
                       state.location.latitude,
                       state.location.longitude,
                     ),
-                    zoom: 15,
                   ),
-                  markers: <Marker>{
-                    Marker(
-                      markerId: const MarkerId('m1'),
-                      position: LatLng(
-                        state.location.latitude,
-                        state.location.longitude,
-                      ),
-                    ),
-                  },
-                );
-              }
-              if (state is NoLocationfound) {
-                return Center(
-                    child: Text(
-                  'No location found!',
-                  style: textStyle,
-                ));
-              } else {
-                return const LoadingIndicator();
-              }
-            }),
+                },
+              );
+            }
+            if (state is NoLocationfound) {
+              return Center(
+                  child: Text(
+                'No location found!',
+                style: textStyle,
+              ));
+            } else {
+              return const LoadingIndicator();
+            }
+          }),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 4.h),
+            child: ElevatedButton(
+              onPressed: () {
+                context.read<SmsServiceBloc>().add(
+                    SendSms(command: SendSMS.fetchLocation, context: context));
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 30.w),
+              ),
+              child: Text(
+                'Refresh vehicle location',
+                style: textStyle,
+              ),
+            ),
           ),
         ),
       ]),
