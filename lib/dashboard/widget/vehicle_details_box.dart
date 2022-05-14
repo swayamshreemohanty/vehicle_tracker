@@ -51,7 +51,10 @@ class VehicleDetails extends StatelessWidget {
                       style: textStyle,
                     );
                   } else {
-                    return const StatusLoadingSpinner();
+                    return Padding(
+                      padding: EdgeInsets.only(left: 4.w),
+                      child: const StatusLoadingSpinner(),
+                    );
                   }
                 },
               ),
@@ -97,10 +100,13 @@ class StatusLoadingSpinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 18.h,
-      width: 18.w,
-      child: const LoadingIndicator(strokeWidth: 3),
+    return Padding(
+      padding: EdgeInsets.only(left: 4.w),
+      child: SizedBox(
+        height: 18.h,
+        width: 18.w,
+        child: const LoadingIndicator(strokeWidth: 3),
+      ),
     );
   }
 }
