@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vehicle_tracker/config/send_sms_status.dart';
-import 'package:vehicle_tracker/dashboard/logic/bloc/sms_service_bloc.dart';
+import 'package:vehicle_tracker/dashboard/logic/sms_service/sms_service_bloc.dart';
 
 class ActionButtons extends StatelessWidget {
   const ActionButtons({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class ActionButtons extends StatelessWidget {
           },
         ),
         Buttons(
-          buttonName: 'Check\nStatus',
+          buttonName: 'Status',
           onPressed: () {
             context
                 .read<SmsServiceBloc>()
