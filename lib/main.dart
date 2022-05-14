@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vehicle_tracker/dashboard/logic/dashboard_data_controller/dashboarddatacontroller_cubit.dart';
 import 'package:vehicle_tracker/dashboard/logic/sms_service/sms_service_bloc.dart';
 import 'package:vehicle_tracker/dashboard/logic/update_location/updatelocation_cubit.dart';
+import 'package:vehicle_tracker/dashboard/logic/update_status/update_status_cubit.dart';
 import 'package:vehicle_tracker/dashboard/screen/dashboard.dart';
 
 void main() {
@@ -33,9 +34,13 @@ class MyApp extends StatelessWidget {
         BlocProvider<UpdatelocationCubit>(
           create: (context) => UpdatelocationCubit(),
         ),
+        BlocProvider<UpdateStatusCubit>(
+          create: (context) => UpdateStatusCubit(),
+        ),
         BlocProvider<DashboarddatacontrollerCubit>(
           create: (context) => DashboarddatacontrollerCubit(
             updatelocationCubit: context.read<UpdatelocationCubit>(),
+            updateStatusCubit: context.read<UpdateStatusCubit>(),
           ),
         ),
         BlocProvider<SmsServiceBloc>(
