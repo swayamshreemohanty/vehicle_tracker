@@ -8,9 +8,9 @@ import 'package:vehicle_tracker/dashboard/logic/update_location/updatelocation_c
 import 'package:vehicle_tracker/dashboard/logic/update_status/update_status_cubit.dart';
 import 'package:vehicle_tracker/dashboard/screen/dashboard.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
   SystemChrome.setSystemUIOverlayStyle(
