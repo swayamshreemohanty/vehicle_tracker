@@ -53,6 +53,7 @@ class SmsServiceBloc extends Bloc<SmsServiceEvent, SmsServiceState> {
             ShowSnackBar.showSnackBar(
               event.context,
               e.message ?? "Error occured.",
+              backGroundColor: Colors.red,
             );
           } else {
             ShowSnackBar.showSnackBar(event.context, 'Something went wrong.');
