@@ -1,7 +1,7 @@
 enum SendSMS {
-  ignationOn,
+   ignitionOn,
   startEngine,
-  ignationOff,
+  ignitionOff,
   checkStatus,
   fetchLocation,
 }
@@ -9,12 +9,12 @@ enum SendSMS {
 extension SMSStatus on SendSMS {
   String sendStatusByString(SendSMS sendSMS) {
     switch (sendSMS) {
-      case SendSMS.ignationOn:
-        return 'ignation_on';
+      case SendSMS. ignitionOn:
+        return 'ignition_on';
       case SendSMS.startEngine:
         return 'start_engine';
-      case SendSMS.ignationOff:
-        return 'ignation_off';
+      case SendSMS. ignitionOff:
+        return 'ignition_off';
       case SendSMS.checkStatus:
         return 'checkstatus';
       case SendSMS.fetchLocation:

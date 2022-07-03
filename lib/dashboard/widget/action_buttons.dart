@@ -15,10 +15,10 @@ class ActionButtons extends StatelessWidget {
         Row(
           children: [
             Buttons(
-              buttonName: 'Ignation On',
+              buttonName: 'Ignition On',
               onPressed: () {
                 context.read<SmsServiceBloc>().add(
-                    SendSms(command: SendSMS.ignationOn, context: context));
+                    SendSms(command: SendSMS.ignitionOn, context: context));
               },
             ),
           ],
@@ -35,10 +35,10 @@ class ActionButtons extends StatelessWidget {
               },
             ),
             Buttons(
-              buttonName: 'Ignation Off',
+              buttonName: 'Ignition Off',
               onPressed: () {
                 context.read<SmsServiceBloc>().add(
-                    SendSms(command: SendSMS.ignationOff, context: context));
+                    SendSms(command: SendSMS.ignitionOff, context: context));
               },
             ),
             Buttons(
