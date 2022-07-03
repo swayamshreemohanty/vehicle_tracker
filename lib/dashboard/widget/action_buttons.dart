@@ -10,32 +10,45 @@ class ActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
       children: [
-        Buttons(
-          buttonName: 'Start',
-          onPressed: () {
-            context
-                .read<SmsServiceBloc>()
-                .add(SendSms(command: SendSMS.start, context: context));
-          },
+        Row(
+          children: [
+            Buttons(
+              buttonName: 'Ignation On',
+              onPressed: () {
+                context.read<SmsServiceBloc>().add(
+                    SendSms(command: SendSMS.ignationOn, context: context));
+              },
+            ),
+          ],
         ),
-        Buttons(
-          buttonName: 'Stop',
-          onPressed: () {
-            context
-                .read<SmsServiceBloc>()
-                .add(SendSms(command: SendSMS.stop, context: context));
-          },
-        ),
-        Buttons(
-          buttonName: 'Status',
-          onPressed: () {
-            context
-                .read<SmsServiceBloc>()
-                .add(SendSms(command: SendSMS.checkStatus, context: context));
-          },
+        SizedBox(height: 10.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Buttons(
+              buttonName: 'Start Engine',
+              onPressed: () {
+                context.read<SmsServiceBloc>().add(
+                    SendSms(command: SendSMS.startEngine, context: context));
+              },
+            ),
+            Buttons(
+              buttonName: 'Ignation Off',
+              onPressed: () {
+                context.read<SmsServiceBloc>().add(
+                    SendSms(command: SendSMS.ignationOff, context: context));
+              },
+            ),
+            Buttons(
+              buttonName: 'Status',
+              onPressed: () {
+                context.read<SmsServiceBloc>().add(
+                    SendSms(command: SendSMS.checkStatus, context: context));
+              },
+            ),
+          ],
         ),
       ],
     );
@@ -56,14 +69,14 @@ class Buttons extends StatelessWidget {
     final buttonNameTextStyle = GoogleFonts.poppins(
         textStyle: TextStyle(
       fontWeight: FontWeight.w600,
-      fontSize: 15.sp,
+      fontSize: 14.sp,
     ));
     return Expanded(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5.w),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 5.w),
+            padding: EdgeInsets.symmetric(vertical: 20.h),
           ),
           onPressed: onPressed,
           child: Text(
